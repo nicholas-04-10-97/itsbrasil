@@ -1,0 +1,33 @@
+---
+const plans = [
+  { speed: "100MB", price: "69,90" },
+  { speed: "300MB", price: "79,90" },
+  { speed: "500MB", price: "89,90" },
+  { speed: "600MB", price: "99,90" },
+];
+---
+
+<section class="plans">
+  {plans.map(plan => (
+    <div class="card">
+      <h2>{plan.speed}</h2>
+      <p>R$ {plan.price}/mês</p>
+    </div>
+  ))}
+</section>
+
+<style>
+.plans {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 40px;
+}
+
+.card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+</style>

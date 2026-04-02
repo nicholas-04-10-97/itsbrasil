@@ -1,0 +1,111 @@
+.slider {
+  position: relative;
+  height: 400px;
+
+  background-color: #8cb650;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* 🔥 THIS makes it stay still */
+
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 👈 move everything left */
+  flex: 1;
+  text-align: left; /* 👈 text aligns properly */
+  padding-left: 300px; /* 👈 space from edge (adjust as you like) */
+}
+
+.slide img{
+  max-height: 200px;
+}
+
+/* SLIDES */
+
+.slide {
+  display: none;
+  max-width: 600px;
+}
+
+.slide.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* BUTTONS */
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.controls button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.controls button.active {
+  opacity: 1;
+}
+
+
+/* animation */
+.left {
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+.slide img {
+  transform: translateX(80px);
+  opacity: 0;
+}
+
+.slide.active .left {
+  animation: slideInLeft 1.2s ease forwards;
+}
+
+.slide.active img {
+  animation: slideInRight 1.2s ease forwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

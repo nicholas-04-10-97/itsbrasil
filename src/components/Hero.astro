@@ -1,0 +1,67 @@
+---
+import "../styles/hero.css";
+---
+<section class="slider">
+  <div class="overlay">
+    <div class="content">
+      <div class="slide active" data-id="1">
+        <div class="left">
+        <h2>ITS BRASIL</h2>
+        <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img src="src/images/sl1.png" alt="Imagem de destaque" />
+      </div>
+
+      <div class="slide" data-id="2">
+        <div class="left">
+        <h2>ITS BRASIL</h2>
+        <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img  src="src/images/sl2.png" alt="Imagem de destaque" />
+      </div>
+
+      <div class="slide" data-id="3">
+        <div class="left">
+        <h2>ITS BRASIL</h2>
+        <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img  src="src/images/sl3.png" alt="Imagem de destaque" />
+      </div>
+            <div class="slide" data-id="4">
+        <div class="left">
+        <h2>ITS BRASIL</h2>
+        <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img  src="src/images/sl4.png" alt="Imagem de destaque" />
+      </div>
+    </div>
+
+    <div class="controls">
+      <button data-target="1"></button>
+      <button data-target="2"></button>
+      <button data-target="3"></button>
+      <button data-target="4"></button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.controls button');
+    const slides = document.querySelectorAll('.slide');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.target;
+
+        slides.forEach(s => s.classList.remove('active'));
+        buttons.forEach(b => b.classList.remove('active'));
+
+        document.querySelector(`.slide[data-id="${target}"]`)
+          .classList.add('active');
+
+        button.classList.add('active');
+      });
+    });
+  });
+</script>
