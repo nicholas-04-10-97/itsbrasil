@@ -26,8 +26,26 @@
   padding-left: 300px; /* 👈 space from edge (adjust as you like) */
 }
 
+.left {
+  width: 400px;      /* 👈 same as image */
+  text-align: left;  /* 👈 aligns text to image edge */
+}
+
+.left h2 {
+    font-size: 3.5rem;
+    font-weight: 600;
+
+}
+
+.left p {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
 .slide img{
-  max-height: 200px;
+    width: 250px;   
+
 }
 
 /* SLIDES */
@@ -39,10 +57,9 @@
 
 .slide.active {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
+  flex-direction: column; /* 👈 stack text above image */
+  align-items: center;    /* 👈 center the whole block */
+  gap: 20px;
 }
 
 /* BUTTONS */
