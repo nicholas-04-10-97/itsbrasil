@@ -1,33 +1,103 @@
 ---
-const plans = [
-  { speed: "100MB", price: "69,90" },
-  { speed: "300MB", price: "79,90" },
-  { speed: "500MB", price: "89,90" },
-  { speed: "600MB", price: "99,90" },
+import "../styles/plans.css";
+
+const cards = [
+  {
+    title: "100MB",
+    pricebase: ["R$ 90,00*"],
+    pricetrue: ["R$ 79,90*"],
+    mbps: ["100Mbps"],
+    upload: ["30Mbps"],
+    link: "#"
+  },
+  {
+    title: "300MB",
+    pricebase: ["R$ 100,00*"],
+    pricetrue: ["R$ 89,90*"],
+    mbps: ["300Mbps"],
+    upload: ["90Mbps"],
+    link: "#"
+  },
+  {
+    title: "500MB",
+    pricebase: ["R$ 120,00*"],
+    pricetrue: ["R$ 99,90*"],
+    mbps: ["500Mbps"],
+    upload: ["150Mbps"],
+    link: "#"
+  },
+  {
+    title: "600MB",
+    pricebase: ["R$ 150,00*"],
+    pricetrue: ["R$ 129,90*"],
+    mbps: ["600Mbps"],
+    upload: ["150Mbps"],
+    link: "#"
+  }
 ];
 ---
 
-<section class="plans">
-  {plans.map(plan => (
-    <div class="card">
-      <h2>{plan.speed}</h2>
-      <p>R$ {plan.price}/mês</p>
-    </div>
-  ))}
+<section class="cards-section">
+  <div class="cards">
+    {cards.map(card => (
+      <div class="card">
+        
+        <div class="card-top">
+          {card.title}
+        </div>
+
+
+
+
+
+        <div class="card-body">
+        {card.pricebase.map(pricebase => (
+            <p class="pricebase">De {pricebase}</p>
+          ))}
+        
+<p class="beforeprice">Por apenas</p>
+
+        {card.pricetrue.map(pricetrue => (
+            <p class="pricetrue">{pricetrue}</p>
+          ))}
+          
+<p class="afterprice">mensais</p>
+<p class="card-asterisco">*Para pagamento até um dia antes do vencimento</p>
+
+        {card.mbps.map(mbps => (
+            <p class="carddowntag">Até {mbps} de Download</p>
+          ))}
+        {card.upload.map(upload => (
+            <p class="carddowntag">Até {upload} de Upload</p>
+          ))}
+
+        </div>
+
+        <a href={card.link} class="card-button">
+          <img src="../src/images/icons/icons8-rocket-64.png" class="card-button-img"/>
+          <p>Pré-venda</p>
+        </a>
+
+      </div>
+    ))}
+  </div>
 </section>
 
-<style>
-.plans {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  padding: 40px;
-}
 
-.card {
-  background: #f5f5f5;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-</style>
+
+
+<script is:client>
+  const cards = document.querySelectorAll('.cards');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+
+  cards.forEach(cards => observer.observe(cards));
+</script>

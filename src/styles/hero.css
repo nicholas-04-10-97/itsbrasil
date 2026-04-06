@@ -1,11 +1,11 @@
 .slider {
   position: relative;
-  height: 460px;
+  height: 480px;
 
   background-color: #8cb650;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* 🔥 THIS makes it stay still */
+  background-attachment: fixed; /* THIS makes it stay still */
 
 }
 
@@ -19,15 +19,15 @@
 
 .content {
   display: flex;
-  align-items: left; /* 👈 align items to the left */
-  justify-content: flex-start; /* 👈 move everything left */
+  align-items: left; /* align items to the left */
+  justify-content: flex-start; /* move everything left */
   flex: 1;
-  text-align: left; /* 👈 text aligns properly */
-  padding-left: 360px; /* 👈 space from edge (adjust as you like) */
+  text-align: left; /* text aligns properly */
+  padding-left: 360px; /* space from edge */
 }
 
 .left {
-  text-align: left;  /* 👈 aligns text to image edge */
+  text-align: left;  /* aligns text to image edge */
 }
 
 .left h2 {
@@ -54,7 +54,8 @@
 .slide img {
   display: block; /* avoids weird inline spacing */
   width: 300px;
-  max-width: 100%; /* 👈 prevents overflow */  height: auto;
+  max-width: 100%; /* prevents overflow */  
+  height: auto;
 }
 
 /* SLIDES */
@@ -66,8 +67,8 @@
 
 .slide.active {
   display: flex;
-  flex-direction: column; /* 👈 stack text above image */
-  align-items: flex-start; /* 👈 THIS is the key */
+  flex-direction: column; /* stack text above image */
+  align-items: flex-start; 
     gap: 40px;
 }
 
@@ -78,7 +79,7 @@
   justify-content: center;
   gap: 5px;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .controls button {
@@ -110,18 +111,18 @@
 }
 
 .controls button.active::before {
-  height: 100%; /* 👈 fills from bottom */
+  height: 100%; /* fills from bottom */
 }
 
 
 /* animation */
 .left {
-  transform: translateX(-100vw); /* 👈 fully off-screen left */
+  transform: translateX(-100vw); /* fully off-screen left */
   opacity: 0;
 }
 
 .slide img {
-  transform: translateX(100vw); /* 👈 fully off-screen right */
+  transform: translateX(100vw); /* fully off-screen right */
   opacity: 0;
 }
 
@@ -159,7 +160,7 @@
 /* RESPONSIVE */
 @media (max-width: 1024px) {
   .content {
-    padding-left: 100px; /* less extreme */
+    padding-left: 100px;
   }
 
   .left h2 {
