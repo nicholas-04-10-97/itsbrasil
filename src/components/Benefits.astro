@@ -1,17 +1,70 @@
 ---
+import "../styles/benefits.css";
+
 const benefits = [
-  "Wi-fi grátis",
-  "Suporte Especializado",
-  "Planos acessíveis",
-  "Maior Velocidade",
-  "Rápida instalação",
-  "Fibra própria"
+  {
+    icon: "../public/icons/wifi.png",
+    title: "Wi-fi grátis",
+    text: "Wi-fi de alta potência pra você ficar 100% conectado com mais estabilidade e cobertura."
+  },
+  {
+    icon: "../public/icons/support.png",
+    title: "Suporte Especializado",
+    text: "Estamos aqui para você diariamente, das 6h às 22h."
+  },
+  {
+    icon: "../public/icons/money.png",
+    title: "Planos acessíveis",
+    text: "Planos sob medida que cabem no seu bolso."
+  },
+  {
+    icon: "../public/icons/speed.png",
+    title: "Maior Velocidade",
+    text: "Assista filmes e seriados, acesse as rede sociais e realize todas as atividade do seu dia-a-dia sem lentidão ou interrupções."
+  },
+  {
+    icon: "../public/icons/instal.png",
+    title: "Rápida instalação",
+    text: "Nós temos a missão de fazer a diferença na sua vida. E tudo começa com uma instalação rápida para que você comece a usar sua ITS Fibra+ o mais rápido possível!"
+  },
+  {
+    icon: "../public/icons/router.png",
+    title: "Fibra própria",
+    text: "Internet 100% via Fibra Óptica para executar as atividades do seu dia com velocidade e conforto."
+  }
 ];
 ---
 
-<section>
-  <h2>Vantagens</h2>
-  <ul>
-    {benefits.map(item => <li>{item}</li>)}
-  </ul>
+<section class="benefits">
+  <h2 class="benefits-title">
+    <span>Para</span> <span class="green">Você</span>
+  </h2>
+
+  <div class="benefits-grid">
+    {benefits.map((item) => (
+      <div class="benefit-card">
+        <img src={item.icon} alt={item.title} />
+        <h3>{item.title}</h3>
+        <p>{item.text}</p>
+      </div>
+    ))}
+  </div>
 </section>
+
+<script is:client>
+  const section = document.querySelector('.benefits');
+
+  if (section) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    observer.observe(section);
+  }
+</script>

@@ -1,4 +1,82 @@
-<section>
-  <h2>Área de cobertura</h2>
-  <p>Atendemos diversas cidades da Bahia</p>
+---
+import "../styles/coverage.css";
+
+const cities1 = [
+  "Alagoinhas", "Brejões", "Cachoeira", "Camaçari", "Camamu",
+  "Candeias", "Catu", "Conceição da Feira", "Conceição do Almeida",
+  "Cruz das Almas", "Dias D'Ávila", "Entre Rios", "Esplanada",
+  "Feira de Santana", "Governador Mangabeira", "Ibicaraí",
+  "Ilhéus", "Itabuna", "Itacaré", "Itambé", "Itapetinga",
+  "Itororó", "Ituberá", "Jaguaquara"
+];
+
+const cities2 = [
+  "Jequié", "Lauro de Freitas", "Madre de Deus", "Maragojipe",
+  "Mata de São João", "Muritiba", "Nazaré das Farinhas",
+  "Planaltino", "Poções", "Pojuca", "Salvador", "Santo Amaro",
+  "Santo Antônio de Jesus", "Santo Estêvão", "São Felipe",
+  "São Francisco do Conde", "São Gonçalo dos Campos",
+  "São Sebastião do Passé", "Sapeaçu", "Simões Filho",
+  "Valença", "Vera Cruz", "Vitória da Conquista", "Una"
+];
+---
+
+<section class="coverage" id="coverage">
+  <h2 class="coverage-title">
+    <span>Área de</span> <span class="green">Cobertura</span>
+  </h2>
+
+  <p class="coverage-text">
+    A ITS Brasil está presente em mais de 40 municípios, com investimento acelerado
+    e com ampliações contínuas, expandindo sua capacidade de atender empresas,
+    provedores, operadoras e governo.
+  </p>
+
+  <div class="coverage-container">
+    
+    <!-- IMAGE -->
+    <div class="coverage-map">
+      <img src="src/images/Cobertura.jpg" alt="Mapa de cobertura" />
+    </div>
+
+    <!-- LIST 1 -->
+    <ul class="coverage-list">
+      {cities1.map(city => (
+        <li><img src="../icons/MapMarker.png"/> {city}</li>
+      ))}
+    </ul>
+
+    <!-- LIST 2 -->
+    <ul class="coverage-list">
+      {cities2.map(city => (
+        <li><img src="../icons/MapMarker.png"/> {city}</li>
+      ))}
+    </ul>
+
+  </div>
 </section>
+
+<script is:client>
+  window.addEventListener('load', () => {
+    const section = document.querySelector('.coverage');
+
+    if (!section) {
+      console.log('Coverage section not found');
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          console.log('Coverage visible');
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    observer.observe(section);
+  });
+</script>

@@ -74,7 +74,7 @@ const cards = [
         </div>
 
         <a href={card.link} class="card-button">
-          <img src="../src/images/icons/icons8-rocket-64.png" class="card-button-img"/>
+          <img src="../public/icons/icons8-rocket-64.png" class="card-button-img"/>
           <p>Pré-venda</p>
         </a>
 
@@ -96,7 +96,7 @@ const cards = [
       }
     });
   }, {
-    threshold: 0.3
+    threshold: 0.01
   });
 
   cards.forEach(cards => observer.observe(cards));

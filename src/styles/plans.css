@@ -98,6 +98,16 @@ padding: 10px;
 
   
 /* RESPONSIVE */
+@media (max-width: 1024px) {
+  .cards {
+    flex-wrap: wrap;
+  }
+    .card{
+width: 260px;
+  }
+
+}
+
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;

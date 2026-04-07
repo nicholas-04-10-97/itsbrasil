@@ -1,0 +1,148 @@
+.header {
+  width: 100%;
+
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.container {
+  max-width: 1200px; /* controls how centered it feels */
+  margin: 0 auto;
+  padding: 0 20px; /* side spacing on smaller screens */
+}
+
+/* TOP BAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 40px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.topbar a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.topbar a:hover {
+  color: #6fcd00;
+}
+
+.topbar a:active {
+    font-weight: 600;
+    color: #777;
+
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* replaces margin-right */
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 15px 40px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav a:hover {
+  color: #6fcd00;
+}
+
+.nav a.active {
+  color: #6fcd00;
+  font-weight: 600;
+}
+
+/*DROPDOWN*/
+.dropdown {
+  position: relative;
+}
+
+/* BUTTON */
+.dropdown-toggle {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+
+
+/* MENU */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 1000;
+
+  background: white;
+  min-width: 180px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: all 0.25s ease;
+}
+
+/* LINKS */
+.dropdown-menu a {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.dropdown-menu a:hover {
+  background: #6fcd00;
+  color: #eee;
+}
+
+/* SHOW ON HOVER */
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* responsive - need to fix later and add a hamburguer */
+
+@media (max-width: 900px) {
+  .topbar {
+    display: none;
+  }
+
+  .nav {
+    display: none; 
+  }
+}
+
+/* stick */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
