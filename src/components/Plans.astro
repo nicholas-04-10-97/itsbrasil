@@ -39,35 +39,32 @@ const cards = [
 
 <section class="cards-section">
   <div class="cards">
-    {cards.map(card => (
+    {cards.map((card, index) => (
       <div class="card">
         
         <div class="card-top">
           {card.title}
         </div>
 
-
-
-
-
         <div class="card-body">
-        {card.pricebase.map(pricebase => (
-            <p class="pricebase">De {pricebase}</p>
-          ))}
-        
-<p class="beforeprice">Por apenas</p>
 
-        {card.pricetrue.map(pricetrue => (
-            <p class="pricetrue">{pricetrue}</p>
+          {card.pricebase.map(pricebase => (
+            <p class="pricebase" data-index={index}>De {pricebase}</p>
+          ))}
+
+          <p class="beforeprice">Por apenas</p>
+
+          {card.pricetrue.map(pricetrue => (
+            <p class="pricetrue" data-index={index}>{pricetrue}</p>
           ))}
           
-<p class="afterprice">mensais</p>
-<p class="card-asterisco">*Para pagamento até um dia antes do vencimento</p>
+          <p class="afterprice">mensais</p>
+          <p class="card-asterisco">*Para pagamento até um dia antes do vencimento</p>
 
-        {card.mbps.map(mbps => (
+          {card.mbps.map(mbps => (
             <p class="carddowntag">Até {mbps} de Download</p>
           ))}
-        {card.upload.map(upload => (
+          {card.upload.map(upload => (
             <p class="carddowntag">Até {upload} de Upload</p>
           ))}
 
@@ -83,10 +80,63 @@ const cards = [
   </div>
 </section>
 
-
-
-
 <script is:client>
+  const pricing = {
+    salvador: [
+      { base: "R$ 90,00*", true: "R$ 79,90*" },
+      { base: "R$ 100,00*", true: "R$ 89,90*" },
+      { base: "R$ 120,00*", true: "R$ 99,90*" },
+      { base: "R$ 150,00*", true: "R$ 129,90*" }
+    ],
+    catu: [
+      { base: "R$ 80,00*", true: "R$ 69,90*" },
+      { base: "R$ 90,00*", true: "R$ 79,90*" },
+      { base: "R$ 110,00*", true: "R$ 89,90*" },
+      { base: "R$ 140,00*", true: "R$ 119,90*" }
+    ],
+    cachoeira: [
+      { base: "R$ 85,00*", true: "R$ 74,90*" },
+      { base: "R$ 95,00*", true: "R$ 84,90*" },
+      { base: "R$ 115,00*", true: "R$ 94,90*" },
+      { base: "R$ 145,00*", true: "R$ 124,90*" }
+    ],
+    esplanada: [
+      { base: "R$ 88,00*", true: "R$ 77,90*" },
+      { base: "R$ 98,00*", true: "R$ 87,90*" },
+      { base: "R$ 118,00*", true: "R$ 97,90*" },
+      { base: "R$ 148,00*", true: "R$ 127,90*" }
+    ]
+  };
+
+  function updatePrices(city) {
+    const priceBaseEls = document.querySelectorAll('.pricebase');
+    const priceTrueEls = document.querySelectorAll('.pricetrue');
+
+    const selectedPricing = pricing[city];
+
+    if (!selectedPricing) return;
+
+    priceBaseEls.forEach((el) => {
+      const index = el.dataset.index;
+      el.textContent = "De " + selectedPricing[index].base;
+    });
+
+    priceTrueEls.forEach((el) => {
+      const index = el.dataset.index;
+      el.textContent = selectedPricing[index].true;
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedCity = localStorage.getItem("selectedCity") || "salvador";
+    updatePrices(savedCity);
+  });
+
+  window.addEventListener("storage", () => {
+    const city = localStorage.getItem("selectedCity");
+    updatePrices(city);
+  });
+
   const cards = document.querySelectorAll('.cards');
 
   const observer = new IntersectionObserver((entries) => {

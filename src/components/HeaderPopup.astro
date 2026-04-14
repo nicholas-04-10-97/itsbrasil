@@ -1,0 +1,89 @@
+---
+import "../styles/headerpopup.css";
+---
+
+
+<!-- Modal -->
+<div id="locationModal" class="modal">
+  <div class="modal-content">
+    
+    <!-- Close button -->
+    <span class="close-btn" id="closeLocation">&times;</span>
+
+    <!-- Search -->
+    <input 
+      type="text" 
+      id="searchCity" 
+      placeholder="Buscar cidade..."
+      class="search-input"
+    />
+
+    <!-- List -->
+    <ul id="cityList" class="city-list">
+      <li data-city="Salvador">Salvador, BA</li>
+      <li data-city="Catu">Catu, BA</li>
+      <li data-city="Cachoeira">Cachoeira, BA</li>
+      <li data-city="Esplanada">Esplanada, BA</li>
+    </ul>
+
+  </div>
+</div>
+
+
+<script>
+  const openBtn = document.getElementById("openLocation");
+  const modal = document.getElementById("locationModal");
+  const closeBtn = document.getElementById("closeLocation");
+  const searchInput = document.getElementById("searchCity");
+  const cityList = document.getElementById("cityList");
+  const items = cityList.getElementsByTagName("li");
+
+  // Open modal
+  openBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    modal.classList.add("active");
+  });
+
+  // Close modal
+  closeBtn.addEventListener("click", () => {
+    modal.classList.remove("active");
+  });
+
+  // Close clicking outside
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.remove("active");
+    }
+  });
+
+  // Search filter
+  searchInput.addEventListener("keyup", () => {
+    const value = searchInput.value.toLowerCase();
+
+    for (let i = 0; i < items.length; i++) {
+      const text = items[i].textContent.toLowerCase();
+      items[i].style.display = text.includes(value) ? "" : "none";
+    }
+  });
+
+  // Select city
+  for (let i = 0; i < items.length; i++) {
+items[i].addEventListener("click", () => {
+  const city = items[i].dataset.city.toLowerCase();
+
+  // ✅ SAVE selected city
+  localStorage.setItem("selectedCity", city);
+
+  // Update button text
+  openBtn.textContent = items[i].textContent + " ▾";
+
+  // Close modal
+  modal.classList.remove("active");
+
+  // 🔥 Update prices instantly (if Plans is on same page)
+  if (typeof updatePrices === "function") {
+    updatePrices(city);
+  }
+});
+  }
+</script>
