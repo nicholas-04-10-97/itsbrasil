@@ -2,11 +2,10 @@
   position: relative;
   height: 480px;
 
-  background-color: #8cb650;
+  background-image: url("/src/images/Banda-Larga-Background-02-scaled.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* THIS makes it stay still */
-
 }
 
 .overlay {
@@ -172,10 +171,12 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 770px) {
   .slider {
   height: 360px;
-  background-color: #8cb650;
+}
+.controls {
+  margin-bottom: 0px;
 }
     .content {
     padding-left: 20px;
@@ -195,3 +196,11 @@
   }
 }
 
+@media (max-width: 420px) {
+.slider {
+  height: 600px;
+  background-image: url("src/images/Banda-Larga-Background-02-mobile.jpg");
+  background-size: cover;
+  background-position: center;
+}
+}

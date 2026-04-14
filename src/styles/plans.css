@@ -111,6 +111,7 @@ width: 260px;
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;
+    margin-top: 0px;
   }
   .card{
 max-width: 360px;
