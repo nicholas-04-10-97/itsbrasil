@@ -9,15 +9,18 @@ import "../styles/headerpopup.css";
     
     <!-- Close button -->
     <span class="close-btn" id="closeLocation">&times;</span>
-
+<div class="PopupContent">
+      <!-- Logo -->
+<img src="public/icons/its-logo2.png" alt="ITS_dark_logo" class="PopupLogo"/>
+  <div>
     <!-- Search -->
-    <input 
+    <div class="search-container"><img src="public/icons/search-13-xxl.png"><input 
       type="text" 
       id="searchCity" 
-      placeholder="Buscar cidade..."
+      placeholder="Qual sua cidade?"
       class="search-input"
-    />
-
+    /></div>
+<hr class="meu-separador" />
     <!-- List -->
     <ul id="cityList" class="city-list">
       <li data-city="Salvador">Salvador, BA</li>
@@ -25,7 +28,8 @@ import "../styles/headerpopup.css";
       <li data-city="Cachoeira">Cachoeira, BA</li>
       <li data-city="Esplanada">Esplanada, BA</li>
     </ul>
-
+    </div>
+</div>
   </div>
 </div>
 
@@ -38,25 +42,25 @@ import "../styles/headerpopup.css";
   const cityList = document.getElementById("cityList");
   const items = cityList.getElementsByTagName("li");
 
-  // Open modal
+  // OPEN MODAL
   openBtn.addEventListener("click", (e) => {
     e.preventDefault();
     modal.classList.add("active");
   });
 
-  // Close modal
+  // CLOSE MODAL
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("active");
   });
 
-  // Close clicking outside
+  // CLOSE CLICKING OUTSIDE
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
       modal.classList.remove("active");
     }
   });
 
-  // Search filter
+  // SEARCH FILTER
   searchInput.addEventListener("keyup", () => {
     const value = searchInput.value.toLowerCase();
 
@@ -66,24 +70,44 @@ import "../styles/headerpopup.css";
     }
   });
 
-  // Select city
+  // SELECT CITY
   for (let i = 0; i < items.length; i++) {
-items[i].addEventListener("click", () => {
-  const city = items[i].dataset.city.toLowerCase();
+    items[i].addEventListener("click", () => {
+      const city = items[i].dataset.city.toLowerCase();
 
-  // ✅ SAVE selected city
-  localStorage.setItem("selectedCity", city);
+      //  SAVE CITY
+      localStorage.setItem("selectedCity", city);
 
-  // Update button text
-  openBtn.textContent = items[i].textContent + " ▾";
+      //  UPDATE BUTTON TEXT
+      openBtn.textContent = items[i].textContent + " ▾";
 
-  // Close modal
-  modal.classList.remove("active");
+      //  CLOSE MODAL
+      modal.classList.remove("active");
 
-  // 🔥 Update prices instantly (if Plans is on same page)
-  if (typeof updatePrices === "function") {
-    updatePrices(city);
+      //  UPDATE PRICES (Plans)
+      if (typeof updatePrices === "function") {
+        updatePrices(city);
+      }
+
+      //  UPDATE HERO IMAGES
+      if (typeof updateHeroImages === "function") {
+        updateHeroImages(city);
+      }
+    });
   }
-});
-  }
+
+  // LOAD SAVED CITY ON PAGE LOAD
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedCity = localStorage.getItem("selectedCity");
+
+    if (savedCity) {
+      const selectedItem = [...items].find(
+        item => item.dataset.city === savedCity
+      );
+
+      if (selectedItem) {
+        openBtn.textContent = selectedItem.textContent + " ▾";
+      }
+    }
+  });
 </script>

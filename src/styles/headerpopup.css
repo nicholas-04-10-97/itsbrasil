@@ -1,7 +1,10 @@
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+    background-image: url("src/images/tech-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
   display: none;
   z-index: 9999;
 }
@@ -11,9 +14,6 @@
 }
 
 .modal-content {
-  max-width: 500px;
-  margin: 80px auto;
-  padding: 20px;
   color: white;
 }
 
@@ -21,29 +21,63 @@
   font-size: 32px;
   cursor: pointer;
   float: right;
+  padding: 10px;
+}
+
+.PopupContent{
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 300px;
+margin-top: 300px;
+
+}
+
+.PopupLogo{
+  width: 180px;
+  height: 150px;
 }
 
 .search-input {
   width: 100%;
   padding: 12px;
-  margin: 20px 0;
+    margin: 0;
   border: none;
   border-radius: 6px;
+  background: transparent;
+  color: white;
 }
+
+  .meu-separador {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 0;
+  }
+
+  .search-container {
+    display: flex;
+flex-direction: row;
+  }
+
+  .search-container img {
+height: 24px;
+width: 24px;
+margin: 0px;
+  }
 
 .city-list {
   list-style: none;
   padding: 0;
   max-height: 300px;
   overflow-y: auto;
+
 }
 
 .city-list li {
   padding: 12px;
   cursor: pointer;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .city-list li:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(47, 129, 252, 0.97);
 }
