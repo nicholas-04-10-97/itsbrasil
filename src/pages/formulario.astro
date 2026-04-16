@@ -30,10 +30,10 @@ const selectedPlan = url.searchParams.get("plano");
         Preencha as informações abaixo e <span>finalize seu pedido!</span>
       </h1>
 
-      <form>
+      <form id="form">
 
         <!-- INTERNET -->
-        <div class="box">
+        <div class="box" id="box1">
           <h2>Sua Internet Banda Larga</h2>
 
           <label>Tipo *</label>
@@ -62,14 +62,14 @@ const selectedPlan = url.searchParams.get("plano");
           <h2>Responsável/Solicitante</h2>
 
           <div class="grid">
-            <input placeholder="Nome Completo *" />
-            <input placeholder="E-mail *" />
-            <input placeholder="CPF *" />
-            <input placeholder="Celular *" />
-            <input placeholder="RG *" />
-            <input placeholder="Data de Nascimento *" />
-            <input placeholder="Telefone" />
-            <input placeholder="Telefone Adicional" />
+            <input name="nome" placeholder="Nome Completo *" />
+            <input name="email" placeholder="E-mail *" />
+            <input name="cpf" placeholder="CPF *" />
+            <input name="mobile" placeholder="Celular *" />
+            <input name="RG" placeholder="RG *" />
+            <input name="birthday" placeholder="Data de Nascimento *" />
+            <input name="phone" placeholder="Telefone" />
+            <input name="phoneExtra" placeholder="Telefone Adicional" />
           </div>
         </div>
 
@@ -78,26 +78,26 @@ const selectedPlan = url.searchParams.get("plano");
           <h2>Local de Instalação</h2>
 
           <div class="grid">
-            <input placeholder="CEP *" />
-            <input placeholder="Estado *" />
-            <input placeholder="Cidade *" />
-            <input placeholder="Bairro *" />
-            <input placeholder="Endereço *" />
-            <input placeholder="Número *" />
-            <select>
+            <input name="CEP" placeholder="CEP *" />
+            <input name="state" placeholder="Estado *" />
+            <input name="city" placeholder="Cidade *" />
+            <input name="bairro" placeholder="Bairro *" />
+            <input name="adress" placeholder="Endereço *" />
+            <input name="adressNumber" placeholder="Número *" />
+            <select name="CasaOuApt" >
               <option>Casa</option>
               <option>Apartamento</option>
             </select>
-            <input placeholder="Complemento" />
+            <input name="complemento" placeholder="Complemento" />
           </div>
         </div>
 
         <!-- PAGAMENTO -->
-        <div class="box">
+        <div class="box" id="box4">
           <h2>Forma de Pagamento</h2>
 
           <label>
-            <input type="radio" name="pagamento" checked />
+            <input name="boleto" type="radio" name="pagamento" checked />
             Boleto
           </label>
         </div>
@@ -107,8 +107,8 @@ const selectedPlan = url.searchParams.get("plano");
           <h2>Informações Adicionais</h2>
 
           <p>Já possui Banda Larga?</p>
-          <label><input type="radio" name="internet" checked /> Não</label>
-          <label><input type="radio" name="internet" /> Sim</label>
+          <label><input name="internetNo" type="radio" name="internet" checked /> Não</label>
+          <label><input name="internetYes" type="radio" name="internet" /> Sim</label>
         </div>
 
         <!-- SUBMIT -->
@@ -121,7 +121,31 @@ const selectedPlan = url.searchParams.get("plano");
   </body>
 </html>
 
+<script>
+  const form = document.getElementById("form");
 
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    const data = Object.fromEntries(formData.entries());
+
+    const res = await fetch("/api/lead", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      alert("Enviado com sucesso!");
+    }
+  });
+</script>
 
 
 
