@@ -4,41 +4,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 ---
 <BaseLayout>
-<form method="POST" action="/api/contact" id="contact-form">
+<form method="POST" action="/api/send" id="contact-form">
   <input type="text" name="name" placeholder="Your name" required />
   <input type="email" name="email" placeholder="Your email" required />
   <textarea name="message" placeholder="Your message" required></textarea>
   <button type="submit">Send</button>
 </form>
 
-{Astro.url.searchParams.get("success") && (
-  <p>✅ Message sent successfully!</p>
-)}
-
-<p id="success" style="display:none;">✅ Message sent!</p>
-
-
 </BaseLayout>
-
-
-<script>
-  const form = document.getElementById('contact-form');
-  const success = document.getElementById('success');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const data = new FormData(form);
-
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      body: data,
-    });
-
-    if (res.ok) {
-      success.style.display = 'block';
-      form.reset();
-    }
-  });
-</script>
-
