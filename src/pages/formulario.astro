@@ -2,17 +2,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "formulario";
 import "../styles/formulario.css";
+import { actions } from "astro:actions";
 
 const plans = [
-  { value: "100MB", label: "100MB - R$ 79,90" },
-  { value: "300MB", label: "300MB - R$ 89,90" },
-  { value: "500MB", label: "500MB - R$ 89,90" },
-  { value: "600MB", label: "600MB - R$ 129,90" },
+  { value: "100MB", label: "100MB" },
+  { value: "300MB", label: "300MB" },
+  { value: "500MB", label: "500MB" },
+  { value: "600MB", label: "600MB" },
 ];
 
 const url = new URL(Astro.request.url);
 const selectedPlan = url.searchParams.get("plano");
 
+const result = Astro.getActionResult(actions.assinar);
 ---
 <BaseLayout>
 
@@ -21,7 +23,6 @@ const selectedPlan = url.searchParams.get("plano");
   <head>
     <meta charset="UTF-8" />
     <title>Finalizar Pedido</title>
-    <link rel="stylesheet" href="/styles/form.css">
   </head>
 
   <body>
@@ -30,7 +31,7 @@ const selectedPlan = url.searchParams.get("plano");
         Preencha as informações abaixo e <span>finalize seu pedido!</span>
       </h1>
 
-      <form id="form">
+      <form method="POST" action={actions.assinar} id="form">
 
         <!-- INTERNET -->
         <div class="box" id="box1">
@@ -42,7 +43,7 @@ const selectedPlan = url.searchParams.get("plano");
           </select>
 
           <label>Seu Plano *</label>
-          <select id="plano">
+          <select name="plano" id="plano"> 
             {plans.map(plan => (
               <option value={plan.value}>{plan.label}</option>
             ))}
@@ -65,11 +66,11 @@ const selectedPlan = url.searchParams.get("plano");
             <input name="nome" placeholder="Nome Completo *" />
             <input name="email" placeholder="E-mail *" />
             <input name="cpf" placeholder="CPF *" />
-            <input name="mobile" placeholder="Celular *" />
-            <input name="RG" placeholder="RG *" />
-            <input name="birthday" placeholder="Data de Nascimento *" />
-            <input name="phone" placeholder="Telefone" />
-            <input name="phoneExtra" placeholder="Telefone Adicional" />
+            <input name="celular" placeholder="Celular *" />
+            <input name="rg" placeholder="RG *" />
+            <input name="dataNascimento" placeholder="Data de Nascimento *" />
+            <input name="telefone" placeholder="Telefone" />
+            <input name="telefoneAdicional" placeholder="Telefone Adicional" />
           </div>
         </div>
 
@@ -78,13 +79,13 @@ const selectedPlan = url.searchParams.get("plano");
           <h2>Local de Instalação</h2>
 
           <div class="grid">
-            <input name="CEP" placeholder="CEP *" />
-            <input name="state" placeholder="Estado *" />
-            <input name="city" placeholder="Cidade *" />
+            <input name="cep" placeholder="CEP *" />
+            <input name="estado" placeholder="Estado *" />
+            <input name="cidade" placeholder="Cidade *" />
             <input name="bairro" placeholder="Bairro *" />
-            <input name="adress" placeholder="Endereço *" />
-            <input name="adressNumber" placeholder="Número *" />
-            <select name="CasaOuApt" >
+            <input name="endereco" placeholder="Endereço *" />
+            <input name="numero" placeholder="Número *" />
+            <select name="CasaApartamento" >
               <option>Casa</option>
               <option>Apartamento</option>
             </select>
@@ -97,20 +98,12 @@ const selectedPlan = url.searchParams.get("plano");
           <h2>Forma de Pagamento</h2>
 
           <label>
-            <input name="boleto" type="radio" name="pagamento" checked />
+            <input type="radio" name="pagamento" value="boleto" checked  />
             Boleto
           </label>
         </div>
 
-        <!-- INFO -->
-        <div class="box">
-          <h2>Informações Adicionais</h2>
-
-          <p>Já possui Banda Larga?</p>
-          <label><input name="internetNo" type="radio" name="internet" checked /> Não</label>
-          <label><input name="internetYes" type="radio" name="internet" /> Sim</label>
-        </div>
-
+      
         <!-- SUBMIT -->
         <button type="submit" class="submit">
           Enviar
@@ -121,36 +114,9 @@ const selectedPlan = url.searchParams.get("plano");
   </body>
 </html>
 
-<script>
-  const form = document.getElementById("form");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    const data = Object.fromEntries(formData.entries());
-
-    const res = await fetch("/api/lead", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    const result = await res.json();
-
-    if (result.success) {
-      alert("Enviado com sucesso!");
-    }
-  });
-</script>
-
-
-
-
-
+{result?.error && (
+  <pre>{JSON.stringify(result.error, null, 2)}</pre>
+)}
 
 
 
