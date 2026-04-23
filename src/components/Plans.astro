@@ -57,7 +57,7 @@ const cards = [
           {card.pricetrue.map(pricetrue => (
             <p class="pricetrue" data-index={index}>{pricetrue}</p>
           ))}
-          
+
           <p class="afterprice">mensais</p>
           <p class="card-asterisco">*Para pagamento até um dia antes do vencimento</p>
 
@@ -109,21 +109,19 @@ const cards = [
   };
 
   function updatePrices(city) {
-    const priceBaseEls = document.querySelectorAll('.pricebase');
-    const priceTrueEls = document.querySelectorAll('.pricetrue');
+    const baseEls = document.querySelectorAll('.pricebase');
+    const trueEls = document.querySelectorAll('.pricetrue');
+    const data = pricing[city];
+    if (!data) return;
 
-    const selectedPricing = pricing[city];
-
-    if (!selectedPricing) return;
-
-    priceBaseEls.forEach((el) => {
-      const index = el.dataset.index;
-      el.textContent = "De " + selectedPricing[index].base;
+    baseEls.forEach(el => {
+      const i = el.dataset.index;
+      el.textContent = "De " + data[i].base;
     });
 
-    priceTrueEls.forEach((el) => {
-      const index = el.dataset.index;
-      el.textContent = selectedPricing[index].true;
+    trueEls.forEach(el => {
+      const i = el.dataset.index;
+      el.textContent = data[i].true;
     });
   }
 
@@ -132,22 +130,20 @@ const cards = [
     updatePrices(savedCity);
   });
 
-  window.addEventListener("storage", () => {
-    const city = localStorage.getItem("selectedCity");
-    updatePrices(city);
+  // 🔥 LISTEN TO CITY CHANGE
+  window.addEventListener("cityChanged", (e) => {
+    updatePrices(e.detail.city);
   });
 
-  const cards = document.querySelectorAll('.cards');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
-  }, {
-    threshold: 0.01
-  });
-
-  cards.forEach(cards => observer.observe(cards));
+   const cards = document.querySelectorAll('.cards');
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ entry.target.classList.add('show');
+}
+});
+}, {
+threshold: 0.01
+});
+cards.forEach(cards => observer.observe(cards));
 </script>

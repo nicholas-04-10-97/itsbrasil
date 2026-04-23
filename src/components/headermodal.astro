@@ -2,14 +2,12 @@
 import "../styles/headerpopup.css";
 ---
 
+<a href="#" class="location-btn" id="openLocation">Salvador, BA ▾</a>
 
 <!-- Modal -->
 <div id="locationModal" class="modal">
   <div class="modal-content">
-    
-    <!-- Close button -->
     <span class="close-btn" id="closeLocation">&times;</span>
-
 
 <div class="PopupContent">
       <!-- Logo -->
@@ -25,16 +23,15 @@ import "../styles/headerpopup.css";
     />
   </div>
 <hr class="meu-separador" />
-    <!-- List -->
+
     <ul id="cityList" class="city-list">
-      <li data-city="Salvador">Salvador, BA</li>
-      <li data-city="Catu">Catu, BA</li>
-      <li data-city="Cachoeira">Cachoeira, BA</li>
-      <li data-city="Esplanada">Esplanada, BA</li>
+      <li data-city="salvador">Salvador, BA</li>
+      <li data-city="catu">Catu, BA</li>
+      <li data-city="cachoeira">Cachoeira, BA</li>
+      <li data-city="esplanada">Esplanada, BA</li>
     </ul>
-    </div>
-</div>
   </div>
+</div>
 </div>
 
 
@@ -43,66 +40,45 @@ import "../styles/headerpopup.css";
   const modal = document.getElementById("locationModal");
   const closeBtn = document.getElementById("closeLocation");
   const searchInput = document.getElementById("searchCity");
-  const cityList = document.getElementById("cityList");
-  const items = cityList.getElementsByTagName("li");
+  const items = document.querySelectorAll("#cityList li");
 
-  // OPEN MODAL
+  // Open modal
   openBtn.addEventListener("click", (e) => {
     e.preventDefault();
     modal.classList.add("active");
   });
 
-  // CLOSE MODAL
+  // Close modal
   closeBtn.addEventListener("click", () => {
     modal.classList.remove("active");
   });
 
-  // CLOSE CLICKING OUTSIDE
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.classList.remove("active");
-    }
-  });
-
-  // SEARCH FILTER
+  // Search
   searchInput.addEventListener("keyup", () => {
     const value = searchInput.value.toLowerCase();
-
-    for (let i = 0; i < items.length; i++) {
-      const text = items[i].textContent.toLowerCase();
-      items[i].style.display = text.includes(value) ? "" : "none";
-    }
+    items.forEach(item => {
+      item.style.display = item.textContent.toLowerCase().includes(value)
+        ? ""
+        : "none";
+    });
   });
 
-  // SELECT CITY
-  for (let i = 0; i < items.length; i++) {
-    items[i].addEventListener("click", () => {
-      const city = items[i].dataset.city.toLowerCase();
+  // Select city
+  items.forEach(item => {
+    item.addEventListener("click", () => {
+      const city = item.dataset.city;
 
-      //  SAVE CITY
       localStorage.setItem("selectedCity", city);
-      // update hero instantly
-if (typeof updateHeroImages === "function") {
-  updateHeroImages(city);
-}
 
-      //  UPDATE BUTTON TEXT
-      openBtn.textContent = items[i].textContent + " ▾";
-
-      //  CLOSE MODAL
+      openBtn.textContent = item.textContent + " ▾";
       modal.classList.remove("active");
 
-      //  UPDATE PRICES (Plans)
-      if (typeof updatePrices === "function") {
-        updatePrices(city);
-      }
-
-      //  UPDATE HERO IMAGES
-      if (typeof updateHeroImages === "function") {
-        updateHeroImages(city);
-      }
+      // 🔥 GLOBAL EVENT
+      window.dispatchEvent(new CustomEvent("cityChanged", {
+        detail: { city }
+      }));
     });
-  }
+  });
 
   // Load saved city on reload
   document.addEventListener("DOMContentLoaded", () => {
@@ -114,4 +90,7 @@ if (typeof updateHeroImages === "function") {
       }
     }
   });
+
+
+
 </script>
