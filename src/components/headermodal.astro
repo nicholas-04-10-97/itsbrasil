@@ -53,6 +53,13 @@ import "../styles/headerpopup.css";
     modal.classList.remove("active");
   });
 
+    // CLOSE CLICKING OUTSIDE
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.remove("active");
+    }
+  });
+
   // Search
   searchInput.addEventListener("keyup", () => {
     const value = searchInput.value.toLowerCase();

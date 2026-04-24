@@ -91,12 +91,12 @@ import "../styles/hero.css";
     updateHeroImages(savedCity);
   });
 
-  // 🔥 LISTEN TO CITY CHANGE
+  // LISTEN TO CITY CHANGE
   window.addEventListener("cityChanged", (e) => {
     updateHeroImages(e.detail.city);
   });
 
-  // slider controls (UNCHANGED)
+  // slider controls 
   const buttons = document.querySelectorAll('.controls button');
   const slides = document.querySelectorAll('.slide');
 
