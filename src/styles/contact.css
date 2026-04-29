@@ -12,6 +12,11 @@ padding: 60px 0px 60px 0px;
     flex-direction: row;
 }
 
+.contact-catch img{
+  max-height: 350px;
+ width: auto;
+}
+
 .contact-call {
     display: flex;
     align-items: center;
@@ -19,7 +24,7 @@ padding: 60px 0px 60px 0px;
 }
 
 .contact-title{
-  font-size: 2.5rem;
+  font-size: 3.2rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
@@ -40,8 +45,8 @@ padding: 60px 0px 60px 0px;
 }
 
 .contact-info img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     margin-right: 20px;
 }
 

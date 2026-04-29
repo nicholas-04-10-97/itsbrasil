@@ -1,0 +1,152 @@
+---
+import "../styles/formulario.css";
+
+import { actions } from "astro:actions";
+
+const plans = [
+  { value: "100MB", label: "100MB" },
+  { value: "300MB", label: "300MB" },
+  { value: "500MB", label: "500MB" },
+  { value: "600MB", label: "600MB" },
+];
+
+const url = new URL(Astro.request.url);
+const selectedPlan = url.searchParams.get("plano");
+const selectedTipo = url.searchParams.get("tipo") || "";
+const result = Astro.getActionResult(actions.assinar);
+
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Finalizar Pedido</title>
+  </head>
+
+  <body>
+    <section class="container">
+      <h1>
+        Preencha as informações abaixo e <span>finalize seu pedido!</span>
+      </h1>
+
+      <form method="POST" action={actions.assinar} id="form">
+
+        <!-- INTERNET -->
+        <div class="box" id="box1">
+          <h2>Sua Internet Banda Larga</h2>
+
+          <label>Tipo *</label>
+<select name="tipo" id="tipo">
+  <option value="Residencial" selected={selectedTipo === "Residencial"}>
+    Residencial
+  </option>
+  <option value="Empresarial" selected={selectedTipo === "Empresarial"}>
+    Empresarial
+  </option>
+</select>
+
+          <label>Seu Plano *</label>
+          <select name="plano" id="plano">
+         {plans.map(plan => (
+         <option 
+          value={plan.value} 
+          selected={plan.value === selectedPlan}>{plan.label}
+          </option>
+          ))}
+          </select>
+
+          <ul class="benefits">
+            <li>Rápida</li>
+            <li>Estável</li>
+            <li>Suporte 6h às 22h</li>
+            <li>Instalação Grátis</li>
+            <li>A velocidade anunciada de acesso e tráfego na internet é nominal máxima, podendo sofrer variações decorrentes de fatores externos. A título de medição da velocidade nominal, esta deve ser feita com conexão direta em uma ethernet do modem, sendo que a medição através da interface wireless irá variar de acordo com a capacidade de processamento de cada dispositivo externo. A maioria dos dispositivos wireless disponíveis no mercado como celulares e notebooks, não conseguem medir velocidades individualmente superiores a 200 MB.</li>
+          </ul>
+        </div>
+
+        <!-- DADOS -->
+        <div class="box">
+          <h2>Responsável/Solicitante</h2>
+
+          <div class="grid">
+            <input name="nome" placeholder="Nome Completo *" />
+            <input name="email" placeholder="E-mail *" />
+            <input name="cpf" placeholder="CPF *" />
+            <input name="celular" placeholder="Celular *" />
+            <input name="rg" placeholder="RG *" />
+            <input name="dataNascimento" placeholder="Data de Nascimento *" />
+            <input name="telefone" placeholder="Telefone" />
+            <input name="telefoneAdicional" placeholder="Telefone Adicional" />
+          </div>
+        </div>
+
+        <!-- ENDEREÇO -->
+        <div class="box">
+          <h2>Local de Instalação</h2>
+
+          <div class="grid">
+            <input name="cep" placeholder="CEP *" />
+            <input name="estado" placeholder="Estado *" />
+            <input name="cidade" placeholder="Cidade *" />
+            <input name="bairro" placeholder="Bairro *" />
+            <input name="endereco" placeholder="Endereço *" />
+            <input name="numero" placeholder="Número *" />
+            <select name="CasaApartamento" >
+              <option>Casa</option>
+              <option>Apartamento</option>
+            </select>
+            <input name="complemento" placeholder="Complemento" />
+          </div>
+        </div>
+
+        <!-- PAGAMENTO -->
+        <div class="box" id="box4">
+          <h2>Forma de Pagamento</h2>
+
+          <label>
+            <input type="radio" name="pagamento" value="boleto" checked  />
+            Boleto
+          </label>
+        </div>
+
+      
+        <!-- SUBMIT -->
+        <button type="submit" class="submit">
+          Enviar
+        </button>
+
+      </form>
+    </section>
+  </body>
+</html>
+
+{result?.error && (
+  <pre>{JSON.stringify(result.error, null, 2)}</pre>
+)}
+
+
+<script>
+  const tipoSelect = document.getElementById("tipo");
+  const planoSelect = document.getElementById("plano");
+
+  function updatePlanoOptions() {
+    const isEmpresarial = tipoSelect.value === "Empresarial";
+
+    Array.from(planoSelect.options).forEach(option => {
+      if (option.value === "500MB") {
+        option.disabled = isEmpresarial;
+
+        // If it's currently selected and becomes invalid, reset it
+        if (isEmpresarial && option.selected) {
+          planoSelect.value = "";
+        }
+      }
+    });
+  }
+
+  // Run on page load (important for URL prefill)
+  updatePlanoOptions();
+
+  // Run when user changes Tipo
+  tipoSelect.addEventListener("change", updatePlanoOptions);
+</script>

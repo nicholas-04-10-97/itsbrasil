@@ -2,7 +2,7 @@
   position: relative;
   height: 480px;
 
-  background-image: url("/src/images/Banda-Larga-Background-02-scaled.jpg");
+  background-image: url("/src/images/Banda-Larga-Empresarial.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -181,7 +181,7 @@
     .content {
     padding-left: 20px;
     padding-right: 20px;
-  margin-right: 320px; 
+      margin-right: 320px; 
 
   }
 
@@ -196,16 +196,16 @@
   .slide img {
     width: 200px;
   }
-
 }
 
 @media (max-width: 420px) {
 .slider {
   height: 600px;
-  background-image: url("src/images/Banda-Larga-Background-02-mobile.jpg");
+  background-image: url("src/images/Banda-Larga-Empresarial-Mobile.jpg");
   background-size: cover;
   background-position: center;
 }
+
 .content{
     margin-right: 80px; 
 

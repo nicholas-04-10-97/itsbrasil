@@ -1,0 +1,104 @@
+---
+import "../styles/hero2.css";
+---
+
+<section class="slider" id="banda-larga">
+  <div class="overlay">
+    <div class="content">
+      <div class="slide active" data-id="1">
+        <div class="left">
+          <h2>ITS BRASIL</h2>
+          <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img src="/images/sl1.png" alt="Imagem de destaque" />
+      </div>
+
+      <div class="slide" data-id="2">
+        <div class="left">
+          <h2>ITS BRASIL</h2>
+          <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img src="/images/sl2.png" alt="Imagem de destaque" />
+      </div>
+
+
+      <div class="slide" data-id="3">
+        <div class="left">
+          <h2>ITS BRASIL</h2>
+          <p>A INTERNET<br>PARA VOCÊ</p>
+        </div>
+        <img src="/images/sl3.png" alt="Imagem de destaque" />
+      </div>
+    </div>
+
+    <div class="controls">
+      <button data-target="1"></button>
+      <button data-target="2"></button>
+      <button data-target="3"></button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cityImages = {
+    salvador: [
+      "/images/sl1.png",
+      "/images/sl2.png",
+      "/images/sl4.png"
+    ],
+    catu: [
+      "/images/sl4.png",
+      "/images/sl3.png",
+      "/images/sl1.png"
+    ],
+    cachoeira: [
+      "/images/sl2.png",
+      "/images/sl4.png",
+      "/images/sl3.png"
+    ],
+    esplanada: [
+      "/images/sl3.png",
+      "/images/sl1.png",
+      "/images/sl2.png"
+    ]
+  };
+
+  function updateHeroImages(city) {
+    const slides = document.querySelectorAll('.slide');
+    const images = cityImages[city];
+    if (!images) return;
+
+    slides.forEach((slide, index) => {
+      const img = slide.querySelector('img');
+      if (img) img.src = images[index];
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedCity = localStorage.getItem("selectedCity") || "salvador";
+    updateHeroImages(savedCity);
+  });
+
+  // LISTEN TO CITY CHANGE
+  window.addEventListener("cityChanged", (e) => {
+    updateHeroImages(e.detail.city);
+  });
+
+  // slider controls 
+  const buttons = document.querySelectorAll('.controls button');
+  const slides = document.querySelectorAll('.slide');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.target;
+
+      slides.forEach(s => s.classList.remove('active'));
+      buttons.forEach(b => b.classList.remove('active'));
+
+      document.querySelector(`.slide[data-id="${target}"]`)
+        .classList.add('active');
+
+      button.classList.add('active');
+    });
+  });
+</script>
