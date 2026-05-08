@@ -76,3 +76,12 @@ padding: 60px 0px 60px 0px;
 .contact-call:hover {
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.08);
 }
+
+
+@media (max-width: 900px) {
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+}
