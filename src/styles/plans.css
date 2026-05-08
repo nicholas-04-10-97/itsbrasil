@@ -45,11 +45,13 @@ padding: 15px;
 .pricebase{
     font-weight: 800;
     font-size: 1.25rem;
+    padding: 0px 10px;
+
 
 }
 .beforeprice{
     margin: 0;
-    padding: 0;
+    padding: 0px 10px;
 }
 .pricetrue{
     font-size: 2.2rem;
@@ -60,13 +62,17 @@ padding: 15px;
 }
 .afterprice{
         text-align: right;
+            padding: 0px 30px;
+
 }
 
-
+.card-asterisco{
+  padding: 0px 20px;
+}
 .carddowntag{
     color:#7a7a7a;
     margin: 0;
-    padding: 0;;
+    padding: 0px 20px;
 }
 
 

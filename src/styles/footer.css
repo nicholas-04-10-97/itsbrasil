@@ -1,4 +1,6 @@
 
+/* GERAL */
+
 .footer {
   background: #1c1c1c;
   color: #ccc;
@@ -6,86 +8,123 @@
   flex-direction: column;
 justify-content: center;
 align-items: center;
-
 }
+
+.footer a{
+  text-decoration: none;
+  color: inherit; 
+}
+
+.footer a:hover {
+  color: #00c853;
+}
+
+.footer-content-area{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 120px;
+}
+
+/* CONTAINER */
 
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;              /* centers horizontally */
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
   padding: 60px 20px;          /* reduced side padding */
 }
 
-.footer-col p {
-  line-height: 1.6;
+.footer-text {
+  font-size: 16px;
+  line-height: 1.4;
 }
 
-.footer-link {
-  margin-top: 10px;
-  color: white;
-  cursor: pointer;
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-decoration: none;
+  color: #ccc;
+  font-size: 16px;
 }
 
-/* LINKS */
-.footer-col ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-col li {
-  padding: 10px 0;
+.footer-link{
   border-bottom: 1px solid #333;
-  cursor: pointer;
+  padding: 5px;
 }
 
-/* CONTACT */
-.contact-item {
-  margin-bottom: 15px;
+.social-box {
+  display: flex;
+  gap: 5px;
+
 }
 
-.contact-item strong {
-  display: block;
-  color: white;
-  margin-bottom: 4px;
+.social-content {
+  gap: 0px;
+padding: 0px;
 }
 
-/* SOCIAL BAR */
-.footer-social {
-  background: #111;
-  padding: 15px 80px;
+.social-content:hover {
+  color: #ccc;
+}
+
+.social-icon img{
+  width: 40px;
+  height: 40px;
+}
+
+.footer-icon-bar {
+  background-color: black;
+  width: 1120px;
+  height: 30px;
+  margin: 0 auto;              /* centers horizontally */
   display: flex;
   gap: 20px;
+  padding: 5px 40px;
 }
 
-.footer-social span {
-  background: #333;
-  padding: 8px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+.footer-icon-bar img {
+  width: 20px;
+  height: 20px;
 }
 
-/* BOTTOM */
+.footer-icon-bar img:hover {
+  color: #00c853;
+  width: 24px;
+  height: 24px;
+}
+
+
 .footer-bottom {
   background: #0d0d0d;
   text-align: center;
   padding: 15px;
   font-size: 13px;
+  color: #ccc;
+  height: 60px;
+  padding-right: 500px;
 }
 
 .footer-bottom span {
   color: #00c853;
 }
 
-/* RESPONSIVE */
+
+
+
+/* RESPONSIVO */
 @media (max-width: 900px) {
   .footer-container {
     grid-template-columns: 1fr;
     padding: 40px 20px;
   }
-
-  .footer-social {
-    padding: 15px 20px;
+.footer-icon-bar {
+width: 300px;
+}
+  .footer-bottom {
+ padding: 5px;
   }
 }
