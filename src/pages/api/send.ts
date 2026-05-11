@@ -9,7 +9,7 @@ const {data, error} = await resend.emails.send({
   subject: "It works!",
   html: "<p> Hello from Resend! This email was sent using the Resend API.</p>",
 });
-
+debugger
 if(error) {
     return new Response (JSON.stringify({ error }));
 }

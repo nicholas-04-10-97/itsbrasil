@@ -84,4 +84,17 @@ padding: 60px 0px 60px 0px;
     flex-direction: column;
     padding: 10px;
 }
+.contact-call-text h1{
+    font-size: 1.6rem;
+}
+
+.contact-call-text{
+ padding: 20px;
+ max-width: 350px;
+ 
+}
+
+
+
+
 }
